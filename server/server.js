@@ -2,13 +2,12 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
+require('dotenv').config({ path: path.resolve('./server/.env') });
 
-const PORT = 3000;
-
-mongoose.connect(
-  'mongodb+srv://mleong:U1bZDeMV5MKoClSW@soloproject.zjpkk6b.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 mongoose.connection.once('open', () => {
   console.log('Connected to database');
@@ -48,6 +47,6 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`server listening on port: ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`server listening on port: ${process.env.PORT}`);
 });
