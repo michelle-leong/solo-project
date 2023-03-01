@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
+
+const apiRouter = require(path.resolve('./server/routes/api.js'));
 require('dotenv').config({ path: path.resolve('./server/.env') });
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -15,20 +17,11 @@ mongoose.connection.once('open', () => {
 
 app.use(express.json());
 
+app.use('/dist', express.static(path.resolve('./dist')));
+app.use('/api', apiRouter);
+
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve('./client/index.html'));
-});
-
-app.get('/nutrients', (req, res) => {
-  return res.status(200).json({});
-});
-
-app.post('/:name', (req, res) => {
-  return res.status(200).json({});
-});
-
-app.delete('/:name', (req, res) => {
-  return res.status(200).json({});
 });
 
 app.use((req, res) => {
@@ -43,7 +36,6 @@ app.use((err, req, res, next) => {
   };
   const errorObj = Object.assign(defaultErr, err);
   console.log('err.log is: ', err.log);
-
   return res.status(errorObj.status).json(errorObj.message);
 });
 
