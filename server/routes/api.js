@@ -7,13 +7,15 @@ const DatabaseController = require(path.resolve(
   './server/controllers/DatabaseController'
 ));
 
+const bodyParser = require('body-parser');
+
 const router = express.Router();
 
 router.get('/', DatabaseController.getFood, (req, res) => {
   return res.status(200).json(res.locals.allFood);
 });
 
-router.get(
+router.post(
   '/nutrients',
   FoodController.fetchFood,
   FoodController.fetchServingSize,

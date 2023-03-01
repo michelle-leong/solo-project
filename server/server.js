@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const apiRouter = require(path.resolve('./server/routes/api.js'));
 require('dotenv').config({ path: path.resolve('./server/.env') });
@@ -15,7 +18,16 @@ mongoose.connection.once('open', () => {
   console.log('Connected to database');
 });
 
+const corsOptions = { origin: 'http://localhost:8080' };
+const configuredCors = cors(corsOptions);
+
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.options('*', configuredCors);
+app.use(cors());
+app.use(morgan('dev'));
 
 app.use('/dist', express.static(path.resolve('./dist')));
 app.use('/api', apiRouter);

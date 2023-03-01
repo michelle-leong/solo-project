@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+import MainContainer from '/client/containers/MainContainer.jsx';
 
 const App = () => (
   <div>
-    <h1>hello world!</h1>
+    <MainContainer />
   </div>
 );
 

@@ -2,14 +2,20 @@ const fetch = require('node-fetch');
 
 const FoodController = {
   fetchFood(req, res, next) {
-    const { name, amount } = req.body;
-    //do the + thing with the amount + name
-    fetch(`https://api.api-ninjas.com/v1/nutrition?query=${amount}+${name}`, {
-      headers: { 'X-Api-Key': 'NeUce5dyLoNICXBpT1G75Q==R4ofZnj7TNhI5NZi' },
-    })
+    // console.log('body', req.body);
+    const { foodName, amount } = req.body;
+    console.log('name', foodName, 'amount', amount);
+    // res.locals.name = name;
+    fetch(
+      `https://api.api-ninjas.com/v1/nutrition?query=${amount}+${foodName}`,
+      {
+        headers: { 'X-Api-Key': 'NeUce5dyLoNICXBpT1G75Q==R4ofZnj7TNhI5NZi' },
+      }
+    )
       .then((data) => data.json())
       .then((data) => {
         res.locals.food = data[0];
+        console.log('food', res.locals.food);
         return next();
       })
       .catch((err) => {
@@ -21,11 +27,14 @@ const FoodController = {
   },
 
   fetchServingSize(req, res, next) {
-    const name = req.body.name;
+    const { foodName } = req.body;
 
-    fetch(`https://api.api-ninjas.com/v1/nutrition?query=1+serving+${name}`, {
-      headers: { 'X-Api-Key': 'NeUce5dyLoNICXBpT1G75Q==R4ofZnj7TNhI5NZi' },
-    })
+    fetch(
+      `https://api.api-ninjas.com/v1/nutrition?query=1+serving+${foodName}`,
+      {
+        headers: { 'X-Api-Key': 'NeUce5dyLoNICXBpT1G75Q==R4ofZnj7TNhI5NZi' },
+      }
+    )
       .then((data) => data.json())
       .then((data) => {
         res.locals.servingSize = data[0]['serving_size_g'];
