@@ -3,14 +3,10 @@ import { FoodContext } from '../context/FoodContext.js';
 import GraphContainer from '../containers/GraphContainer.jsx';
 
 const TotalsDisplay = () => {
-  const { totalFoodInfo } = useContext(FoodContext);
-  const [show, setShow] = useState({ div: '' });
-  const handleHover = () => {
-    setShow(show === false ? true : false);
-  };
+  const { totalFoodInfo, showGraph, setShowGraph } = useContext(FoodContext);
 
-  const handleLeave = () => {
-    setShow({ likeList: '' });
+  const handleClick = () => {
+    setShowGraph(showGraph === false ? true : false);
   };
 
   return (
@@ -33,13 +29,11 @@ const TotalsDisplay = () => {
           <span>Protein:</span> {totalFoodInfo.protein.toFixed(2)} oz
         </li>
         <li>
-          <span id='serving'>Total Servings </span>
-          <div id='graph-display'>
-            <GraphContainer />
-          </div>
+          <button id='serving' onClick={handleClick}>
+            Total Servings
+          </button>
         </li>
       </ul>
-      {/* <div id='graph-display'>{show === true ? <GraphContainer /> : ''}</div> */}
     </div>
   );
 };

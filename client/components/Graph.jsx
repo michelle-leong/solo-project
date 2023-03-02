@@ -14,6 +14,7 @@ const Graph = () => {
     protein: 5,
     vegetable: 2.5,
   };
+  console.log(Object.values(suggested));
   const percentages = {};
   for (let key in totalServings) {
     percentages[key] = (totalServings[key] / suggested[key]).toFixed(2) * 100;
@@ -25,7 +26,13 @@ const Graph = () => {
     datasets: [
       {
         label: 'Servings',
-        data: Object.values(percentages),
+        data: [
+          percentages.dairy,
+          percentages.fruit,
+          percentages.grain,
+          percentages.protein,
+          percentages.vegetable,
+        ],
         backgroundColor: [
           '#B3E5FC',
           '#4FC3F7',
@@ -39,6 +46,7 @@ const Graph = () => {
 
   return (
     <div>
+      <h3> % Suggested Servings Eaten</h3>
       <Bar
         data={chartData}
         width={'600px'}
@@ -47,7 +55,6 @@ const Graph = () => {
           responsive: true,
 
           plugins: {
-            title: { display: true, text: '% suggested servings' },
             legend: { display: false },
           },
         }}

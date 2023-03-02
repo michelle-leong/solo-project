@@ -104,6 +104,7 @@ const AddFood = () => {
           <input
             type='text'
             name='amount'
+            id='amount'
             onChange={handleChange}
             value={state.amount}
           />

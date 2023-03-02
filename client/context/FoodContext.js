@@ -20,6 +20,8 @@ export const FoodContextProvider = ({ children }) => {
     vegetable: 0,
   });
 
+  const [showGraph, setShowGraph] = useState(false);
+
   return (
     <FoodContext.Provider
       value={{
@@ -29,6 +31,8 @@ export const FoodContextProvider = ({ children }) => {
         setTotalFoodInfo,
         totalServings,
         setTotalServings,
+        showGraph,
+        setShowGraph,
       }}
     >
       {children}
