@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
+import { FoodContext } from '../context/FoodContext.js';
 
-const TotalsDisplay = (props) => {
-  // useEffect(() => {});
+const TotalsDisplay = () => {
+  const { totalFoodInfo } = useContext(FoodContext);
 
   return (
     <div>
       <ul id='totals-display'>
-        <li>Calories: {props.calories}</li>
-        <li>Total Fat: {props.totalFat}g</li>
-        <li>Protein: {props.protein}oz</li>
-        <li>Sodium: {props.sodium}mg</li>
-        <li>Cholesterol: {props.cholesterol}mg</li>
+        <li>Calories: {totalFoodInfo.calories}</li>
+        <li>Cholesterol: {totalFoodInfo.cholesterol}mg</li>
+        <li>Total Fat: {totalFoodInfo.totalFat}g</li>
+        <li>Protein: {totalFoodInfo.protein}oz</li>
       </ul>
     </div>
   );

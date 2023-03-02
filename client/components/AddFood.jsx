@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import DropdownMenu from '/client/components/DropdownMenu.jsx';
-import { useFoodContext } from '../hooks/useFoodContext.js';
+import { FoodContext } from '../context/FoodContext.js';
 
 const AddFood = () => {
-  const { foodList, dispatch } = useFoodContext();
+  const { setFoodList, setTotalFoodInfo } = useContext(FoodContext);
   const [state, setState] = useState({
     amount: '',
     foodName: '',
@@ -16,7 +16,6 @@ const AddFood = () => {
       ...state,
       [e.target.name]: value,
     });
-    console.log(e.target.name, value);
   };
 
   const submitFood = async () => {
@@ -40,15 +39,42 @@ const AddFood = () => {
       body: JSON.stringify(data),
     });
 
-    const updatedList = await fetch('http://localhost:3000/api');
-    const parsedResponse = await updatedList.json();
-    dispatch({ type: 'SET_FOOD', payload: parsedResponse });
+    const parsedResult = await result.json();
+
+    console.log(parsedResult);
+    setFoodList((oldState) => {
+      const copy = [...oldState];
+      copy.push(parsedResult);
+      return copy;
+    });
+
+    setTotalFoodInfo((oldState) => {
+      const copy = { ...oldState };
+      console.log('copy', copy);
+      console.log('foodGroup', parsedResult.foodGroup);
+      console.log('number servings', parsedResult.numberServings);
+      for (let key in copy) {
+        if (key === parsedResult.foodGroup) {
+          copy[key] += parsedResult.numberServings;
+        } else {
+          copy[key] += parsedResult[key];
+        }
+      }
+      return copy;
+    });
 
     setState({
       ...state,
       amount: '',
       foodName: '',
     });
+  };
+
+  const resetFood = async () => {
+    const result = await fetch('http://localhost:3000/api/reset', {
+      method: 'DELETE',
+    });
+    setFoodList([]);
   };
 
   return (
@@ -74,6 +100,7 @@ const AddFood = () => {
       </label>
       <DropdownMenu change={handleChange} />
       <button onClick={submitFood}>Submit</button>
+      <button onClick={resetFood}>Reset</button>
     </div>
   );
 };

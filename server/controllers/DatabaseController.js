@@ -61,11 +61,9 @@ const DatabaseController = {
   },
 
   deleteItem(req, res, next) {
-    const foodId = req.body._id; //how to access that entry
+    const foodId = req.body.id; //how to access that entry
     Food.findByIdAndRemove(foodId)
-      .then((item) => {
-        res.locals.deleteServing = item.numberServings;
-        res.locals.deleteFoodGroup = item.foodGroup;
+      .then(() => {
         return next();
       })
       .catch((err) => {

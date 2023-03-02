@@ -1,21 +1,35 @@
-import React, { useEffect } from 'react';
-import { useFoodContext } from '../hooks/useFoodContext';
+import React, { useEffect, useContext } from 'react';
+import { FoodContext } from '../context/FoodContext';
 
 const FoodStats = () => {
-  const { foodList, dispatch } = useFoodContext();
+  const { foodList, setFoodList } = useContext(FoodContext);
 
   useEffect(() => {
     const fetchFood = async () => {
       try {
         const response = await fetch('http://localhost:3000/api');
         const parsedResponse = await response.json();
-        dispatch({ type: 'SET_FOOD', payload: parsedResponse.food });
+        setFoodList(parsedResponse);
       } catch (err) {
         console.log(err);
       }
     };
     fetchFood();
   }, []);
+
+  const deleteFood = async (foodId) => {
+    console.log('foodid', foodId);
+    const response = await fetch('http://localhost:3000/api/delete', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: foodId }),
+    });
+    setFoodList((oldState) => {
+      return oldState.filter(({ _id }) => {
+        return _id !== foodId;
+      });
+    });
+  };
 
   const mappedList = foodList.map((item) => {
     return [
@@ -34,12 +48,17 @@ const FoodStats = () => {
         <td>{item.servingSize}</td>
         <td>{item.numberServings}</td>
         <td>
-          <button>X</button>
+          <button
+            onClick={() => {
+              deleteFood(item._id);
+            }}
+          >
+            X
+          </button>
         </td>
       </tr>,
     ];
   });
-  console.log(mappedList);
 
   return (
     <div>
