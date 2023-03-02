@@ -3,7 +3,7 @@ import DropdownMenu from '/client/components/DropdownMenu.jsx';
 import { FoodContext } from '../context/FoodContext.js';
 
 const AddFood = () => {
-  const { setFoodList, setTotalFoodInfo, setTotalServings } =
+  const { setFoodList, setTotalFoodInfo, setTotalServings, foodList } =
     useContext(FoodContext);
   const [state, setState] = useState({
     amount: '',
@@ -19,7 +19,9 @@ const AddFood = () => {
     });
   };
 
-  const submitFood = async () => {
+  const submitFood = async (e) => {
+    e.preventDefault();
+
     const data = {};
 
     for (let key in state) {
@@ -119,10 +121,14 @@ const AddFood = () => {
           />
         </label>
         <DropdownMenu change={handleChange} />
-        <button id='submit' onClick={submitFood}>
+        <button
+          id='submit'
+          onClick={submitFood}
+          disabled={!state.amount || !state.foodName}
+        >
           Submit
         </button>
-        <button id='reset' onClick={resetFood}>
+        <button id='reset' onClick={resetFood} disabled={!foodList.length}>
           Reset
         </button>
       </div>

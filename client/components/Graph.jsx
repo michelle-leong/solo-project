@@ -34,11 +34,11 @@ const Graph = () => {
           percentages.vegetable,
         ],
         backgroundColor: [
-          '#B3E5FC',
-          '#4FC3F7',
-          '#03A9F4',
-          '#0288D1',
-          '#0277BD',
+          '#ddf0e3',
+          '#a1dab4',
+          '#41b6c4',
+          '#2c7fb8',
+          '#253494',
         ],
       },
     ],
@@ -53,7 +53,13 @@ const Graph = () => {
         height={'400px'}
         options={{
           responsive: true,
-
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              stepSize: 10,
+            },
+          },
           plugins: {
             legend: { display: false },
           },

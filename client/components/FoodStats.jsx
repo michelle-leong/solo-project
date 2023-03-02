@@ -199,7 +199,6 @@ const FoodStats = () => {
                 Sugar (g)
               </button>
             </th>
-
             <th>Delete</th>
           </tr>
         </thead>

@@ -31,7 +31,6 @@ h2 {
   width: 70%;
   margin: auto;
 
-
 }
 
 #add-food {
@@ -84,7 +83,7 @@ h2 {
 }
 
 #reset:hover {
-  background-color: #e1e2e0;
+  background-color: #f2f2ef;
   border: 1px solid #00a6fb;
 }
 
@@ -133,6 +132,7 @@ h1, h2, h3 {
   border-radius: 5px;
   font-family: Georgia;
   cursor: pointer;
+  margin-right: 15px;
 
 }
 
@@ -170,15 +170,9 @@ th {
 
 td button {
   font-family: Georgia;
-}
-
-td button:hover {
   cursor: pointer;
 }
 
-td {
-  border: 1px solid;
-}
 
 th button:hover {
   cursor: pointer;
@@ -187,26 +181,23 @@ th button:hover {
 td {
   text-align: center;
   font-size: 18px;
+  border: 1px solid;
 }
 
 #delete {
-  background-color: #c44536;
-  border: #c44536;
+  background-color: #cd3a2a;
+  border: #cd3a2a;
   border-radius: 5px;
   color: #ebf0e5;
-  padding: 3px 8px
+  padding: 3px 10px
 }
 
 
 #graph-container {
   width: 450px;
   height: 375px;
-}
-
-
-#graph-container {
   position: absolute;
-  top: 20%;
+  top: 28%;
   left: 65%;
   background-color: #f9fbf7;
   border: 1px solid lightgray;

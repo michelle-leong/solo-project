@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { FoodContext } from '../context/FoodContext.js';
-import GraphContainer from '../containers/GraphContainer.jsx';
 
 const TotalsDisplay = () => {
   const { totalFoodInfo, showGraph, setShowGraph } = useContext(FoodContext);
