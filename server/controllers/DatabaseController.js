@@ -1,5 +1,4 @@
 const Food = require('../models/foodModel');
-const ObjectId = require('mongoose').Types.ObjectId;
 
 const DatabaseController = {
   getFood(req, res, next) {
@@ -8,6 +7,9 @@ const DatabaseController = {
       .then((data) => {
         res.locals.allFood = data;
         return next();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   },
 
@@ -28,6 +30,7 @@ const DatabaseController = {
     const servingSize = res.locals.servingSize;
     const numberServings = serving_size_g / servingSize;
     const amountEaten = res.locals.amount;
+    res.locals.numberServings = numberServings;
     Food.create({
       name,
       amountEaten,
@@ -57,31 +60,12 @@ const DatabaseController = {
       });
   },
 
-  // updateFood(req, res, next) {
-  //   const foodItem = req.params.id; //bruh how do i access the id
-  //   const newAmount = req.query.serving;
-  //   let serving;
-  //   Food.findOne({ name: foodItem }, 'servingSize', (err, servingSize) => {
-  //     serving = servingSize;
-  //   });
-
-  //   const numberServings = newAmount / serving;
-  //   Food.updateOne({ name: foodItem }, { numberServings: numberServings }, (err) => {
-  //     if (err) {
-  //       return next({
-  //         log: 'studentController.updateStudent',
-  //         message: {
-  //           err: 'studentController.updateStudent, student not found ',
-  //         },
-  //       });
-  //     }
-  //   });
-  // },
-
   deleteItem(req, res, next) {
     const foodId = req.body._id; //how to access that entry
     Food.findByIdAndRemove(foodId)
-      .then(() => {
+      .then((item) => {
+        res.locals.deleteServing = item.numberServings;
+        res.locals.deleteFoodGroup = item.foodGroup;
         return next();
       })
       .catch((err) => {

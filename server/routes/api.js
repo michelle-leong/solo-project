@@ -6,35 +6,50 @@ const FoodController = require(path.resolve(
 const DatabaseController = require(path.resolve(
   './server/controllers/DatabaseController'
 ));
-
-const bodyParser = require('body-parser');
+const ServingsController = require(path.resolve(
+  './server/controllers/ServingsController'
+));
 
 const router = express.Router();
 
-router.get('/', DatabaseController.getFood, (req, res) => {
-  return res.status(200).json(res.locals.allFood);
-});
+router.get(
+  '/',
+  DatabaseController.getFood,
+  ServingsController.getServings,
+  (req, res) => {
+    return res
+      .status(200)
+      .json({ food: res.locals.allFood, servings: res.locals.servingTotals });
+  }
+);
 
 router.post(
   '/nutrients',
   FoodController.fetchFood,
   FoodController.fetchServingSize,
   DatabaseController.saveFood,
+  ServingsController.saveServings,
   (req, res) => {
     return res.status(200).json(res.locals.created);
   }
 );
 
-// router.patch('/:name', DatabaseController.updateFood, (req, res) => {
-//   return res.status(200).json({});
-// });
+router.delete(
+  '/item',
+  DatabaseController.deleteItem,
+  // ServingsController.deleteServing,
+  (req, res) => {
+    return res.status(200).send('hello');
+  }
+);
 
-router.delete('/item', DatabaseController.deleteItem, (req, res) => {
-  return res.status(200).send('hello');
-});
-
-router.delete('/reset', DatabaseController.resetFood, (req, res) => {
-  return res.status(200).send('deleted food');
-});
+router.delete(
+  '/reset',
+  DatabaseController.resetFood,
+  // ServingsController.resetServing,
+  (req, res) => {
+    return res.status(200).send('deleted food');
+  }
+);
 
 module.exports = router;
