@@ -28,7 +28,7 @@ const DatabaseController = {
       sugar_g,
     } = res.locals.food;
     const servingSize = res.locals.servingSize;
-    const numberServings = serving_size_g / servingSize;
+    const numberServings = serving_size_g / servingSize.toFixed(2);
     const amountEaten = res.locals.amount;
     res.locals.numberServings = numberServings;
     Food.create({
@@ -61,9 +61,10 @@ const DatabaseController = {
   },
 
   deleteItem(req, res, next) {
-    const foodId = req.body.id; //how to access that entry
+    const foodId = req.body.id;
     Food.findByIdAndRemove(foodId)
-      .then(() => {
+      .then((item) => {
+        res.locals.deletedItem = item;
         return next();
       })
       .catch((err) => {

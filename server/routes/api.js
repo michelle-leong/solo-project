@@ -24,7 +24,7 @@ router.post(
 );
 
 router.delete('/delete', DatabaseController.deleteItem, (req, res) => {
-  return res.status(200).send('deleted');
+  return res.status(200).json(res.locals.deletedItem);
 });
 
 router.delete('/reset', DatabaseController.resetFood, (req, res) => {

@@ -6,13 +6,12 @@ import FoodStats from '../components/FoodStats.jsx';
 const MainContainer = () => {
   return (
     <div>
-      <div>
+      <div id='main-container'>
         <h1>Calorie Tracker</h1>
         <TotalsDisplay />
         <AddFood />
         <FoodStats />
       </div>
-      <div>{/* <GraphContainer /> */}</div>
     </div>
   );
 };

@@ -1,5 +1,136 @@
+body {
+  font-family: Georgia;
+  background: #ebf0e5;
+  display: flex;
+  justify-content: center;
+  color: #191410;
+  
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 28px;
+}
 
 
-table {
-  padding: 5px;
+#add-food-container {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding-bottom: 20px;
+  background: #f9fbf7;
+
+}
+
+#add-food {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-food button, #add-food label {
+  margin-left: 25px;
+}
+
+#add-food input {
+  margin-left: 5px;
+  font-size: 18px; 
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #191410
+}
+
+#add-food select {
+  margin-left: 5px;
+  border-radius: 5px;
+  height: 1.75em;
+  font-size: 15px;
+  font-family: Georgia;
+}
+
+#add-food button {
+  border-radius: 5px;
+  font-size: 1em;
+  width: 4rem;
+  height: 2em;
+  cursor: pointer;
+}
+
+#submit {
+  background-color: #60d08c;
+  border: 1px solid #60d08c;
+  font-family: Gerogia;
+  color: #ffffff;
+
+}
+
+#reset {
+  background-color: #ebf0e5;
+  border: 1px solid #60d08c;
+  color: #28b360;
+  font-family: Gerogia;
+
+}
+
+h1, h2 {
+  display: flex;
+  justify-content: center;
+}
+
+#totals-display {
+  display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+}
+#totals-display ul {
+  list-style-type: none;
+}
+
+#totals-display li {
+  display: inline;
+  padding: 10px;
+  font-size: 22px;
+}
+
+#totals-display span {
+  font-weight: bold;
+
+}
+
+#food-stats {
+  margin-top: 30px;
+}
+
+th button {
+  background-color: #ebf0e5;
+  border: 0;
+  font-weight: bold;
+  font-family: Georgia;
+  font-size: 18px;
+}
+
+th {
+  font-size: 18px;
+  border: 1px solid;
+}
+
+td button {
+  font-family: Georgia;
+}
+
+td button:hover {
+  cursor: pointer;
+}
+
+td {
+  border: 1px solid;
+}
+
+th button:hover {
+  cursor: pointer;
+}
+td {
+  text-align: center;
+  font-size: 18px;
 }

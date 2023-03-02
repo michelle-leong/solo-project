@@ -3,7 +3,7 @@ import DropdownMenu from '/client/components/DropdownMenu.jsx';
 import { FoodContext } from '../context/FoodContext.js';
 
 const AddFood = () => {
-  const { setFoodList, setTotalFoodInfo, foodList } = useContext(FoodContext);
+  const { setFoodList, setTotalFoodInfo } = useContext(FoodContext);
   const [state, setState] = useState({
     amount: '',
     foodName: '',
@@ -41,7 +41,6 @@ const AddFood = () => {
 
     const parsedResult = await result.json();
 
-    console.log(parsedResult);
     setFoodList((oldState) => {
       const copy = [...oldState];
       copy.push(parsedResult);
@@ -50,15 +49,8 @@ const AddFood = () => {
 
     setTotalFoodInfo((oldState) => {
       const copy = { ...oldState };
-      console.log('copy', copy);
-      console.log('foodGroup', parsedResult.foodGroup);
-      console.log('number servings', parsedResult.numberServings);
       for (let key in copy) {
-        if (key === parsedResult.foodGroup) {
-          copy[key] += parsedResult.numberServings;
-        } else {
-          copy[key] += parsedResult[key];
-        }
+        copy[key] += parsedResult[key];
       }
       return copy;
     });
@@ -75,32 +67,45 @@ const AddFood = () => {
       method: 'DELETE',
     });
     setFoodList([]);
+    setTotalFoodInfo({
+      calories: 0,
+      cholesterol: 0,
+      totalFat: 0,
+      totalCarbohydrates: 0,
+      protein: 0,
+    });
   };
 
   return (
-    <div>
+    <div id='add-food-container'>
       <h2>Add Food</h2>
-      <label>
-        Amount:
-        <input
-          type='text'
-          name='amount'
-          onChange={handleChange}
-          value={state.amount}
-        />
-      </label>
-      <label>
-        Food Name:
-        <input
-          type='text'
-          name='foodName'
-          onChange={handleChange}
-          value={state.foodName}
-        />
-      </label>
-      <DropdownMenu change={handleChange} />
-      <button onClick={submitFood}>Submit</button>
-      <button onClick={resetFood}>Reset</button>
+      <div id='add-food'>
+        <label>
+          Amount:
+          <input
+            type='text'
+            name='amount'
+            onChange={handleChange}
+            value={state.amount}
+          />
+        </label>
+        <label>
+          Food Name:
+          <input
+            type='text'
+            name='foodName'
+            onChange={handleChange}
+            value={state.foodName}
+          />
+        </label>
+        <DropdownMenu change={handleChange} />
+        <button id='submit' onClick={submitFood}>
+          Submit
+        </button>
+        <button id='reset' onClick={resetFood}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 };

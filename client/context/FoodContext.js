@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const FoodContext = createContext();
 
@@ -8,17 +8,18 @@ export const FoodContextProvider = ({ children }) => {
     calories: 0,
     cholesterol: 0,
     totalFat: 0,
-    sugar: 0,
-    fruit: 0,
-    grain: 0,
-    vegetable: 0,
+    totalCarbohydrates: 0,
     protein: 0,
-    dairy: 0,
   });
 
   return (
     <FoodContext.Provider
-      value={{ foodList, setFoodList, totalFoodInfo, setTotalFoodInfo }}
+      value={{
+        foodList,
+        setFoodList,
+        totalFoodInfo,
+        setTotalFoodInfo,
+      }}
     >
       {children}
     </FoodContext.Provider>
