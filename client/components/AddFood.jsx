@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import DropdownMenu from '/client/components/DropdownMenu.jsx';
+import { useFoodContext } from '../hooks/useFoodContext.js';
 
-const AddFood = (props) => {
+const AddFood = () => {
+  const { foodList, dispatch } = useFoodContext();
   const [state, setState] = useState({
     amount: '',
     foodName: '',
@@ -14,6 +16,7 @@ const AddFood = (props) => {
       ...state,
       [e.target.name]: value,
     });
+    console.log(e.target.name, value);
   };
 
   const submitFood = async () => {
@@ -30,17 +33,22 @@ const AddFood = (props) => {
         data[key] = state[key];
       }
     }
-    // console.log(data);
-    // console.log(JSON.stringify(data));
 
     const result = await fetch('http://localhost:3000/api/nutrients', {
       method: 'POST',
-      // mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
 
-    // const jsonResult = await result.json();
+    const updatedList = await fetch('http://localhost:3000/api');
+    const parsedResponse = await updatedList.json();
+    dispatch({ type: 'SET_FOOD', payload: parsedResponse });
+
+    setState({
+      ...state,
+      amount: '',
+      foodName: '',
+    });
   };
 
   return (
@@ -48,11 +56,21 @@ const AddFood = (props) => {
       <h2>Add Food</h2>
       <label>
         Amount:
-        <input type='text' name='amount' onChange={handleChange} />
+        <input
+          type='text'
+          name='amount'
+          onChange={handleChange}
+          value={state.amount}
+        />
       </label>
       <label>
         Food Name:
-        <input type='text' name='foodName' onChange={handleChange} />
+        <input
+          type='text'
+          name='foodName'
+          onChange={handleChange}
+          value={state.foodName}
+        />
       </label>
       <DropdownMenu change={handleChange} />
       <button onClick={submitFood}>Submit</button>

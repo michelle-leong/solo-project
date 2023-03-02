@@ -27,8 +27,10 @@ const DatabaseController = {
     } = res.locals.food;
     const servingSize = res.locals.servingSize;
     const numberServings = serving_size_g / servingSize;
+    const amountEaten = res.locals.amount;
     Food.create({
       name,
+      amountEaten,
       foodGroup,
       calories,
       totalFat: fat_total_g,

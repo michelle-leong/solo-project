@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const foodSchema = new Schema({
   name: { type: String, required: true },
   foodGroup: { type: String, required: true },
+  amountEaten: { type: String, required: true },
   calories: { type: Number, required: true },
   totalFat: { type: Number, required: true },
   saturatedFat: { type: Number, required: true },
