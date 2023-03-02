@@ -3,7 +3,7 @@ import DropdownMenu from '/client/components/DropdownMenu.jsx';
 import { FoodContext } from '../context/FoodContext.js';
 
 const AddFood = () => {
-  const { setFoodList, setTotalFoodInfo } = useContext(FoodContext);
+  const { setFoodList, setTotalFoodInfo, foodList } = useContext(FoodContext);
   const [state, setState] = useState({
     amount: '',
     foodName: '',
