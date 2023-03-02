@@ -3,11 +3,12 @@ import DropdownMenu from '/client/components/DropdownMenu.jsx';
 import { FoodContext } from '../context/FoodContext.js';
 
 const AddFood = () => {
-  const { setFoodList, setTotalFoodInfo } = useContext(FoodContext);
+  const { setFoodList, setTotalFoodInfo, setTotalServings } =
+    useContext(FoodContext);
   const [state, setState] = useState({
     amount: '',
     foodName: '',
-    foodGroup: 'fruit',
+    foodGroup: 'dairy',
   });
 
   const handleChange = (e) => {
@@ -25,6 +26,8 @@ const AddFood = () => {
       if (key === 'amount' || key === 'foodName') {
         if (state[key].includes(' ')) {
           data[key] = state[key].split(' ').join('+');
+        } else if (state[key].includes('/')) {
+          data[key] = state[key].split('/').join('%2F');
         } else {
           data[key] = state[key];
         }
@@ -55,6 +58,15 @@ const AddFood = () => {
       return copy;
     });
 
+    setTotalServings((oldState) => {
+      const copy = { ...oldState };
+      if (parsedResult.foodGroup === 'protein')
+        copy.protein += parsedResult.protein;
+      else copy[parsedResult.foodGroup] += parsedResult.numberServings;
+
+      return copy;
+    });
+
     setState({
       ...state,
       amount: '',
@@ -63,7 +75,7 @@ const AddFood = () => {
   };
 
   const resetFood = async () => {
-    const result = await fetch('http://localhost:3000/api/reset', {
+    await fetch('http://localhost:3000/api/reset', {
       method: 'DELETE',
     });
     setFoodList([]);
@@ -73,6 +85,13 @@ const AddFood = () => {
       totalFat: 0,
       totalCarbohydrates: 0,
       protein: 0,
+    });
+    setTotalServings({
+      dairy: 0,
+      fruit: 0,
+      grain: 0,
+      protein: 0,
+      vegetable: 0,
     });
   };
 

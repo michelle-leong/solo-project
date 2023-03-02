@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 const DropdownMenu = (props) => {
   const options = [
+    { label: 'Dairy', value: 'dairy' },
     { label: 'Fruit', value: 'fruit' },
-    { label: 'Vegetable', value: 'vegetable' },
     { label: 'Grain', value: 'grain' },
     { label: 'Protein', value: 'protein' },
-    { label: 'Dairy', value: 'dairy' },
+    { label: 'Vegetable', value: 'vegetable' },
   ];
 
   return (

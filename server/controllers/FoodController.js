@@ -4,7 +4,6 @@ const FoodController = {
   fetchFood(req, res, next) {
     // console.log('body', req.body);
     const { foodName, amount } = req.body;
-    console.log('name', foodName, 'amount', amount);
     res.locals.amount = amount.split('+').join(' ');
     fetch(
       `https://api.api-ninjas.com/v1/nutrition?query=${amount}+${foodName}`,

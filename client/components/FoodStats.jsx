@@ -2,8 +2,14 @@ import React, { useEffect, useContext, useState } from 'react';
 import { FoodContext } from '../context/FoodContext';
 
 const FoodStats = () => {
-  const { foodList, setFoodList, totalFoodInfo, setTotalFoodInfo } =
-    useContext(FoodContext);
+  const {
+    foodList,
+    setFoodList,
+    totalFoodInfo,
+    setTotalFoodInfo,
+    totalServings,
+    setTotalServings,
+  } = useContext(FoodContext);
 
   useEffect(() => {
     const fetchFood = async () => {
@@ -13,17 +19,21 @@ const FoodStats = () => {
         setFoodList(parsedResponse);
 
         const copy = { ...totalFoodInfo };
-        console.log(copy);
         parsedResponse.forEach((item) => {
           for (let key in copy) {
-            if (key === item.foodGroup) {
-              copy[key] += item.numberServings.toFixed(2);
-            } else {
-              copy[key] += item[key];
-            }
+            copy[key] += item[key];
           }
         });
         setTotalFoodInfo(copy);
+
+        const servingsCopy = { ...totalServings };
+        parsedResponse.forEach((item) => {
+          if (item.foodGroup === 'protein') {
+            servingsCopy.protein += item.protein;
+          }
+          servingsCopy[item.foodGroup] += item.numberServings;
+        });
+        setTotalServings(servingsCopy);
       } catch (err) {
         console.log(err);
       }
@@ -48,8 +58,18 @@ const FoodStats = () => {
 
     setTotalFoodInfo((oldState) => {
       const copy = { ...oldState };
-      for (let key in oldState) {
+      for (let key in copy) {
         copy[key] -= parsedResponse[key];
+      }
+      return copy;
+    });
+
+    setTotalServings((oldState) => {
+      const copy = { ...oldState };
+      if (parsedResponse.foodGroup === 'protein') {
+        copy.protein -= parsedResponse.protein;
+      } else {
+        copy[parsedResponse.foodGroup] -= parsedResponse.numberServings;
       }
       return copy;
     });
@@ -153,7 +173,7 @@ const FoodStats = () => {
             </th>
             <th>
               <button type='button' onClick={() => sortList('protein')}>
-                Protein (g)
+                Protein (oz)
               </button>
             </th>
             <th>

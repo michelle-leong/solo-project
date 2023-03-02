@@ -28,8 +28,9 @@ const DatabaseController = {
       sugar_g,
     } = res.locals.food;
     const servingSize = res.locals.servingSize;
-    const numberServings = serving_size_g / servingSize.toFixed(2);
+    const numberServings = (serving_size_g / servingSize).toFixed(2);
     const amountEaten = res.locals.amount;
+    proteinOz = (protein_g / 28.35).toFixed(2);
     res.locals.numberServings = numberServings;
     Food.create({
       name,
@@ -38,7 +39,7 @@ const DatabaseController = {
       calories,
       totalFat: fat_total_g,
       saturatedFat: fat_saturated_g,
-      protein: protein_g,
+      protein: proteinOz,
       sodium: sodium_mg,
       cholesterol: cholesterol_mg,
       totalCarbohydrates: carbohydrates_total_g,

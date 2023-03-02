@@ -12,6 +12,14 @@ export const FoodContextProvider = ({ children }) => {
     protein: 0,
   });
 
+  const [totalServings, setTotalServings] = useState({
+    dairy: 0,
+    fruit: 0,
+    grain: 0,
+    protein: 0,
+    vegetable: 0,
+  });
+
   return (
     <FoodContext.Provider
       value={{
@@ -19,6 +27,8 @@ export const FoodContextProvider = ({ children }) => {
         setFoodList,
         totalFoodInfo,
         setTotalFoodInfo,
+        totalServings,
+        setTotalServings,
       }}
     >
       {children}

@@ -108,14 +108,37 @@ h1, h2 {
   box-shadow: 9px 10px 17px -5px rgba(168,165,168,1);
   border-radius: 5px;
 }
+
+
+
+#graph-container {
+  position: absolute;
+  bottom: 0;
+  width: 400px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  visibility: hidden; 
+  opacity: 0; 
+  transition: 0.5s;
+}
+
+#serving:hover ~ #graph-container{
+  visibility: visibile;
+  opacity: 1;
+  color: blue;
+  cursor: pointer;
+}
+
 #totals-display ul {
   list-style-type: none;
+  display: flex;
 }
 
 #totals-display li {
   display: inline;
   padding: 10px;
   font-size: 22px;
+ 
 }
 
 #totals-display span {
@@ -167,14 +190,8 @@ td {
   font-size: 18px;
 }
 
-#delete {
-  background-color: #c44536;
-  border: 1px solid #c44536;
-  color: white;
-  border-radius: 5px;
-}
-#delete:hover {
-  background-color: #b43f32;
-  border: 1px solid #b43f32;
 
+#graph-container {
+  width: 500px;
+  height: 400px;
 }
