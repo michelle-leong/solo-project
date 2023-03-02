@@ -98,6 +98,7 @@ const FoodStats = () => {
         <td>{item.sugar}</td>
         <td>
           <button
+            id='delete'
             onClick={() => {
               deleteFood(item._id);
             }}
@@ -179,7 +180,7 @@ const FoodStats = () => {
               </button>
             </th>
 
-            <th>Delete Item</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>{mappedList}</tbody>
